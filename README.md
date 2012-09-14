@@ -16,3 +16,21 @@ The following are a few of the libraries that may be represented initially:
 See [this Stack Overflow question](http://stackoverflow.com/q/12426269/334519)
 by the author for more background.
 
+Shapeless usage examples
+------------------------
+
+First for imports and set up:
+
+    import org.instancez.shapeless._
+    import shapeless.Iso
+    import scalaz._, std.list._, std.option._, std.string._, syntax.monoid._
+
+    case class Foo(a: Option[String], b: List[Int])
+
+    implicit val fooIso = Iso.hlist(Foo.apply _, Foo.unapply _)
+
+And now we have a monoid instance for `Foo`:
+
+    scala> Foo(Some("bar"), 1 :: Nil) |+| Foo(Some("baz"), 2 :: 3 :: Nil)
+    res0: Foo = Foo(Some(barbaz),List(1, 2, 3))
+
