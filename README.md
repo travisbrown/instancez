@@ -51,3 +51,57 @@ functor for `Box`, which means we can sequence a list of boxes:
     scala> boxen.sequence
     res0: net.liftweb.common.Box[List[Int]] = Full(List(1, 2, 3))
 
+Dispatch usage example
+----------------------
+
+Suppose we've got a `Promise` representing something like some JSON containing
+an OAuth token:
+
+    import dispatch._
+
+    val tokenJson: Promise[String] = Promise("""
+      { "access_token": "61a6efeaf1423aefefb3696dfaf684eb" }
+    """)
+
+This is a simplified example—in real life this would of course come from the
+Internet.
+
+Now I want to parse this and grab the token itself. I'm using the standard
+library JSON parser here only for the sake of having a more convenient complete
+working example—I know it's hideous. All that really matters here is the type
+of `token`.
+
+    import org.instancez.dispatch._
+    import scala.util.parsing.json.JSON.parseFull
+    import scalaz._
+
+    type EitherPromise[A] = EitherT[Promise, Throwable, A]
+
+    val tokenP: EitherPromise[String] = EitherT.fromEither(tokenJson.map(
+      parseFull(_).flatMap(
+        _.asInstanceOf[Map[String, Any]].get("access_token")
+      ).asInstanceOf[Option[String]].toRight(
+        new RuntimeException("Invalid JSON response.")
+      )
+    ))
+
+Now we want to use this token to construct a new request and end up with
+another promise of the same type:
+
+    val resultP: EitherPromise[String] = tokenP.flatMap { token =>
+      val stuff = url("https://example.com/api/stuff/") <:< Map(
+        "Authorization" -> ("Bearer " + token)
+      )
+
+      EitherT.fromEither(Http(stuff OK as.String).either)
+    }
+
+We could go on and parse or otherwise process the response inside the
+`EitherPromise` monad, but for this example I'll stop here.
+
+    resultP.run().toEither match {
+      case Right(content)        => println("Success! " + content)
+      case Left(StatusCode(404)) => println("Not found!")
+      case Left(e)               => println("Something went wrong! " + e)
+    }
+
