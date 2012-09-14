@@ -25,7 +25,7 @@ import scalaz._, std.anyVal._, std.string._, syntax.monoid._
 
 class HListInstancesSpec extends Specification {
   "The sum of two HLists with monoid elements with matching types" should {
-    "be the HList containing the sum of their elements" in {
+    "be the HList containing the sums of their elements" in {
       (1 :: "a" :: HNil) |+| (2 :: "bc" :: HNil) must_== (3 :: "abc" :: HNil) 
     }
   }
