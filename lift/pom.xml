@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.instancez</groupId>
+  <artifactId>lift-instances</artifactId>
+  <name>Scalaz Instances for Lift</name>
+  <version>0.1.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>org.instancez</groupId>
+    <artifactId>instancez</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>sonatype.oss.snapshots</id>
+      <name>Sonatype OSS Snapshot Repository</name>
+      <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository> 
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.liftweb</groupId>
+      <artifactId>lift-common_${scala.version}</artifactId>
+      <version>2.5-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>
+
