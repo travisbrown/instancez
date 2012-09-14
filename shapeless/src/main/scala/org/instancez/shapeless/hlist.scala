@@ -19,8 +19,9 @@
  */
 package org.instancez.shapeless
 
-import scalaz._, syntax.monoid._
-import shapeless._
+import scalaz.Monoid
+import scalaz.syntax.monoid._
+import shapeless.{ `::`, HList, HNil }
 
 trait HListInstances {
   implicit object hnilMonoid extends Monoid[HNil] {

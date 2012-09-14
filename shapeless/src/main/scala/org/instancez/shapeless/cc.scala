@@ -19,8 +19,9 @@
  */
 package org.instancez.shapeless
 
-import scalaz._, syntax.monoid._
-import shapeless._
+import scalaz.Monoid
+import scalaz.syntax.monoid._
+import shapeless.{ HList, Iso }
 
 trait CaseClassInstances {
   implicit def caseClassMonoid[C, L <: HList](implicit
