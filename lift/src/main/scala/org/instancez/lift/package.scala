@@ -19,5 +19,5 @@
  */
 package org.instancez
 
-package object lift extends BoxInstances
+package object lift extends BoxFunctions with BoxInstances
 

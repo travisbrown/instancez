@@ -20,12 +20,17 @@
 package org.instancez.lift
 
 import scalaz.Monad
-import net.liftweb.common.{ Box, Full }
+import net.liftweb.common.{ Box, Empty, Full }
 
 trait BoxInstances {
   implicit object boxMonad extends Monad[Box] {
     def point[A](a: => A) = Full(a)
     def bind[A, B](box: Box[A])(f: A => Box[B]) = box flatMap f
   }
+}
+
+trait BoxFunctions {
+  final def full[A](a: A): Box[A] = Full(a)
+  final def empty[A]: Box[A] = Empty
 }
 
