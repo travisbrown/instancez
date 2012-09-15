@@ -75,12 +75,12 @@ The `org.instancez.lift` package contains the following instances:
 
  * `Monad` for `Box`
 
-`Box` is essentially half-way between an `Option` and an `Either`, and a lot
-of the machinery that Scalaz provides for these types is useful for `Box` as
-well.
+`Box` is essentially part of the way between an `Option` and an `Either`, and
+a lot of the machinery that Scalaz provides for these types is useful for
+`Box` as well.
 
-The package also includes `full` and `empty` on the model of Scalaz's `some`
-and `none`.
+The package also includes `full` and `empty` methods, on the model of Scalaz's
+`some` and `none`.
 
 ### Lift usage examples ###
 
