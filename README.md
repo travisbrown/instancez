@@ -65,8 +65,7 @@ a `Some` for its name (while a `None` leaves it unchanged):
     scala> a |+| Foo(None, Nil)
     res2: Foo = Foo(Some(bar),List(1))
 
-It would arguably be better just to make `name` a `LastOption` in this case,
-though.
+It might be better just to make `name` a `LastOption` in this case, though.
 
 Lift
 ----
